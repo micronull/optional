@@ -46,7 +46,7 @@ func main() {
 
 	// Create a new optional value that is explicitly null
 	optNull := optional.New[string]("", true)
-	fmt.Println(optNull.IsSet())    // Output: true
+	fmt.Println(optNull.IsSet())    // Output: false
 	fmt.Println(optNull.IsSetNull()) // Output: true
 
 	// Marshal the null optional value to JSON
@@ -54,7 +54,7 @@ func main() {
 	fmt.Println(string(jsonBytes)) // Output: null
 
 	// Unmarshal JSON into an optional value
-	var opt Type[string]
+	var opt optional.Type[string]
 	json.Unmarshal([]byte(`"world"`), &opt)
 	fmt.Println(opt.V) // Output: world
 
@@ -72,6 +72,7 @@ package main
 
 import (
 	"fmt"
+
 	jsoniter "github.com/json-iterator/go"
 
 	"github.com/micronull/optional"
