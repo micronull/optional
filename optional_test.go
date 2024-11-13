@@ -219,3 +219,41 @@ func TestType_ChangeUnmarshal_Error(t *testing.T) {
 	// Reset to default unmarshal
 	optional.ChangeUnmarshal(json.Unmarshal)
 }
+
+func TestType_UnmarshalJSON_ChangeNull(t *testing.T) {
+	t.Parallel()
+
+	type some struct {
+		Field optional.Type[string] `json:"f"`
+	}
+
+	got := some{}
+
+	jsString := `{"f":"some"}`
+	jsNull := `{"f":null}`
+	jsEmpty := `{}`
+
+	_ = json.Unmarshal([]byte(jsString), &got)
+
+	assert.Equal(t, "some", got.Field.V)
+	assert.True(t, got.Field.IsSet())
+	assert.False(t, got.Field.IsSetNull())
+
+	_ = json.Unmarshal([]byte(jsNull), &got)
+
+	assert.Equal(t, "", got.Field.V)
+	assert.True(t, got.Field.IsSet())
+	assert.True(t, got.Field.IsSetNull())
+
+	_ = json.Unmarshal([]byte(jsString), &got)
+
+	assert.Equal(t, "some", got.Field.V)
+	assert.True(t, got.Field.IsSet())
+	assert.False(t, got.Field.IsSetNull())
+
+	_ = json.Unmarshal([]byte(jsEmpty), &got)
+
+	assert.Equal(t, "some", got.Field.V)
+	assert.True(t, got.Field.IsSet())
+	assert.False(t, got.Field.IsSetNull())
+}

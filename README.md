@@ -55,10 +55,17 @@ func main() {
 
 	// Unmarshal JSON into an optional value
 	var opt optional.Type[string]
+	
+	fmt.Println(opt.IsSet()) // Output: false
+	fmt.Println(opt.IsSetNull()) // Output: false
+	
 	json.Unmarshal([]byte(`"world"`), &opt)
 	fmt.Println(opt.V) // Output: world
+	fmt.Println(opt.IsSet()) // Output: true
+	fmt.Println(opt.IsSetNull()) // Output: false
 
 	json.Unmarshal([]byte(`null`), &opt)
+	fmt.Println(opt.IsSet()) // Output: true
 	fmt.Println(opt.IsSetNull()) // Output: true
 }
 ```

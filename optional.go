@@ -62,7 +62,11 @@ func (t *Type[T]) UnmarshalJSON(bytes []byte) error {
 		return nil // Treat empty input as not setting the value
 	}
 
-	t.s = true // Mark as set since we're processing data
+	var zero T
+
+	t.V = zero  // Reset value
+	t.s = true  // Mark as set since we're processing data
+	t.n = false // Reset null flag
 
 	if string(bytes) == "null" {
 		t.n = true // Explicitly null case
