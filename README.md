@@ -1,5 +1,8 @@
 # Optional Package
 
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/micronull/optional?style=flat-square)
+[![Go Reference](https://pkg.go.dev/badge/github.com/micronull/optional.svg)](https://pkg.go.dev/github.com/micronull/optional)
+
 The `optional` package in Go provides a generic type that can represent values which may or may not be set, 
 including the concept of null. This allows handling scenarios where a value might be missing or explicitly set to null in JSON. 
 The package is designed to be flexible and efficient, with support for custom marshalling and unmarshalling functions.
